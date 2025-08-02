@@ -2,6 +2,9 @@
 
 This pylint plugin will enable per-file-ignores in your project!
 
+The project was initaly created by [christopherpickering](https://github.com/christopherpickering).
+Please stay tuned for fixes, feature, etc. in the next months but please give me some time to board on :).
+
 ## Install
 
 ```
