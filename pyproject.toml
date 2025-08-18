@@ -1,39 +1,42 @@
 [build-system]
-build-backend = "poetry.core.masonry.api"
-requires = ["poetry-core>=1.0.0"]
+requires = ["setuptools>=61", "setuptools-scm~=8.0"]
+build-backend = "setuptools.build_meta"
 
-[tool]
-
-[tool.black]
-line-length = 99
-quiet = true
-
-[tool.isort]
-profile = "black"
-quiet = true
-
-[tool.poetry]
-authors = ["Christopher Pickering <christopher@going.bg>"]
-description = "A pylint plugin to ignore error codes per file."
-license = "MIT"
+[project]
 name = "pylint-per-file-ignores"
+dynamic = ["version"]
+description = "A pylint plugin to ignore error codes per file."
+authors = [
+    { name = "Christopher Pickering", email= "christopher@going.bg"},
+    { name = "Kai Harder", email = "kai.harder@sap.com"}
+]
+maintainers = [
+    { name = "Kai Harder", email = "kai.harder@sap.com"}
+]
 readme = "README.md"
-repository = "https://github.com/christopherpickering/pylint-per-file-ignores.git"
-version = "1.4.0"
-
-[tool.poetry.dependencies]
-python = "^3.8.1"
-tomli = {version = "^2.0.1", python = "<3.11"}
-
-[tool.poetry.group.dev.dependencies]
-black = "^24.0.0"
-isort = "^5.10.1"
-ruff = "^0.9.0"
-tox = "^4.0.8"
-
-[tool.ruff]
-line-length = 99  # Ensure same line-length as for Black, above.
-
-[tool.ruff.lint]
-ignore = ["B009", "B010"]
-select = ["E", "F", "I", "S", "T20", "PL", "B"]
+keywords = ["pylint", "plugin", "quality", "linter"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Plugins",
+    "Framework :: Pylint",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Software Development :: Quality Assurance",
+    "Typing :: Typed"
+]
+requires-python = ">=3.9,<4"
+dependencies = [
+    "pylint",  # TODO: Specify version
+    "tomli~=2.2;python_version<'3.11'",
+]
+license = "MIT"
+license-files = ["LICENSE"]
