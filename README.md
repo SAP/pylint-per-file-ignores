@@ -1,62 +1,47 @@
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP/pylint-per-file-ignores)](https://api.reuse.software/info/github.com/SAP/pylint-per-file-ignores)
 
 
-# Pylint Per File Ignores 😲
-
+# Pylint Per File Ignores
 This pylint plugin will enable per-file-ignores in your project!
 
-The project was initaly created by [christopherpickering](https://github.com/christopherpickering).
-Please stay tuned for fixes, feature, etc. in the next months but please give me some time to board on :).
+The project was initially created by [christopherpickering](https://github.com/christopherpickering).
 
 ## Install
-
 ```
-# w/ poetry
-poetry add pylint-per-file-ignores --group dev
-
-# w/ pip
 pip install pylint-per-file-ignores
 ```
 
 ## Add to Pylint Settings
-
 ```toml
-[tool.pylint.MASTER]
+[tool.pylint.main]
 load-plugins=[
     "pylint_per_file_ignores",
     ...
 ]
 ```
 
-
 ## Usage
-
 Add list of patterns and codes you would like to ignore.
+The patterns are matched using `globs`.
 
-### Using native pylint settings
-
-Section "MESSAGES CONTROL". Examples:
-
+**.pylintrc**
 ```ini
-# .pylintrc
-
 [MESSAGES CONTROL]
 per-file-ignores =
-  .*_test\.py:protected-access # ignore "protected-access" errors in test files ending in "_test.py"
+  /folder_1/:missing-function-docstring,W0621,W0240,C0115
+  file.py:C0116,E0001
 ```
 
+**setup.cfg**
 ```ini
-# setup.cfg
-
 [pylint.MESSAGES CONTROL]
 per-file-ignores =
   /folder_1/:missing-function-docstring,W0621,W0240,C0115
   file.py:C0116,E0001
 ```
 
+**pyproject.toml**
 ```toml
-# pyproject.toml
-
 [tool.pylint.'messages control']
 per-file-ignores = [
     "/folder_1/:missing-function-docstring,W0621,W0240,C0115",
@@ -64,19 +49,13 @@ per-file-ignores = [
 ]
 ```
 
-### Using custom `pyproject.toml` section
+## Build and Publish
 
-For backwards compatibility only. Example:
-
-```toml
-[tool.pylint-per-file-ignores]
-"/folder_1/"="missing-function-docstring,W0621,W0240,C0115"
-"file.py"="C0116,E0001"
-```
-
-## Thanks
-
-To pylint :) And the plugin `pylint-django` who produced most of the complex code.
+This project uses `setuptools` as the dependency management and build tool.
+To publish a new release, follow these steps:
+* Update the version in the `pyproject.toml`
+* Add an entry in the changelog
+* Push a new tag like `vX.X.X` to trigger the release
 
 ## Support, Feedback, Contributing
 

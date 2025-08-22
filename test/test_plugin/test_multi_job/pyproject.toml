@@ -1,0 +1,9 @@
+[tool.pylint.main]
+jobs = 2
+load-plugins = ["pylint.extensions.private_import", "pylint_per_file_ignores"]
+
+[tool.pylint."messages control"]
+enable = ["all"]
+per-file-ignores = [
+    "tests/**:import-private-name",
+]
