@@ -45,6 +45,6 @@ jobs:
       - name: "Install pylint"
         run: "pip install -U pylint==${{ matrix.pylint-version }}"
       - name: run tests (with coverage)
-        run: "pytest --cov --cov-report xml --cov-config pyproject.toml tests/"
+        run: "pytest --cov --cov-report xml --cov-config pyproject.toml test/"
       - name: run diff-cover
         run: "diff-cover --config-file pyproject.toml coverage.xml"
