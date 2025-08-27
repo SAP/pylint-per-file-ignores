@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.0.3
+- Make glob patterns recursive
+
 ## 2.0.2
 - Fixed version mismatch
 

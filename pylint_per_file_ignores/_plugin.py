@@ -104,6 +104,6 @@ def load_configuration(linter: PyLinter) -> None:
     for pattern, rules_str in config.items():
         if pattern.startswith("\n"):
             pattern = pattern[1:]
-        files = [Path(file).absolute() for file in glob.glob(pattern)]
+        files = [Path(file).absolute() for file in glob.glob(pattern, recursive=True)]
         rules = [rule.strip() for rule in rules_str.split(",")]
         _augment_add_message(linter, rules=rules, files=files)
