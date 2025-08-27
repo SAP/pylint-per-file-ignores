@@ -1,6 +1,6 @@
 # Changelog
 
-## Next version
+## 2.0.0
 - Dropped support for pylint versions below 3.3
 - Officially support python 3.9-3.14
 - Dropped support for python 3.8 and before
