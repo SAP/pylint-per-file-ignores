@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pylint-per-file-ignores"
-version = "2.0.2"
+version = "2.0.3"
 description = "A pylint plugin to ignore error codes per file."
 authors = [
     { name = "Christopher Pickering", email= "christopher@going.bg"},
