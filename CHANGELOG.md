@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.0.1
+- Fixed project classifiers
+
 ## 2.0.0
 - Dropped support for pylint versions below 3.3
 - Officially support python 3.9-3.14
