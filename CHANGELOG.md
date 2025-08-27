@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.0.2
+- Fixed version mismatch
+
 ## 2.0.1
 - Fixed project classifiers
 
