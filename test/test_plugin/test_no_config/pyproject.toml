@@ -1,2 +1,2 @@
 [tool.pylint.main]
-load-plugins=["pylint_per_file_ignores"]
+load-plugins = ["pylint_per_file_ignores"]

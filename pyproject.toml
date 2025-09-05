@@ -1,20 +1,12 @@
 [build-system]
-requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
+requires = ["setuptools>=61"]
 
 [project]
-name = "pylint-per-file-ignores"
-version = "2.0.3"
-description = "A pylint plugin to ignore error codes per file."
 authors = [
-    { name = "Christopher Pickering", email= "christopher@going.bg"},
-    { name = "Kai Harder", email = "kai.harder@sap.com"}
+    {name = "Christopher Pickering", email = "christopher@going.bg"},
+    {name = "Kai Harder", email = "kai.harder@sap.com"},
 ]
-maintainers = [
-    { name = "Kai Harder", email = "kai.harder@sap.com"}
-]
-readme = "README.md"
-keywords = ["pylint", "plugin", "quality", "linter"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Environment :: Plugins",
@@ -30,14 +22,22 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
     "Topic :: Software Development :: Quality Assurance",
-    "Typing :: Typed"
+    "Typing :: Typed",
 ]
-requires-python = ">=3.9,<4"
 dependencies = [
     "pylint~=3.3",
 ]
+description = "A pylint plugin to ignore error codes per file."
+keywords = ["pylint", "plugin", "quality", "linter"]
 license = "MIT"
 license-files = ["LICENSE"]
+maintainers = [
+    {name = "Kai Harder", email = "kai.harder@sap.com"},
+]
+name = "pylint-per-file-ignores"
+readme = "README.md"
+requires-python = ">=3.9,<4"
+version = "2.0.3"
 
 [dependency-groups]
 dev = [
@@ -50,6 +50,7 @@ dev = [
     "mypy==1.17.1",
     "yesqa==1.5.0",
     "pyupgrade==3.20.0",
+    "toml-sort==0.24.2",
 ]
 test = [
     "pytest==8.4.1",
@@ -58,36 +59,45 @@ test = [
     "pytest-cov==6.2.1",
     "pytest-randomly==3.16.0",
     "pytest-datadir==1.8.0",
-    "pytest-fixture-classes==1.0.3"
+    "pytest-fixture-classes==1.0.3",
 ]
 
-[tool.setuptools.packages.find]
-include = ["pylint_per_file_ignores"]
+[tool.coverage.report]
+fail_under = 90
+show_missing = true
+skip_covered = true
 
-[tool.setuptools.package-data]
-swagger_plugin_for_sphinx = ["py.typed"]
+[tool.coverage.run]
+branch = true
+
+[tool.diff_cover]
+fail_under = 90
+include_untracked = true
 
 [tool.isort]
-profile = "black"
 add_imports = ["from __future__ import annotations"]
-
+profile = "black"
 
 [tool.mypy]
-# main config
-strict_optional = true
-warn_incomplete_stub = true
-warn_no_return = true
-warn_unreachable = true
-strict = true
-warn_unused_ignores = true
 enable_error_code = ["explicit-override", "possibly-undefined", "ignore-without-code", "deprecated"]
-strict_bytes = true
-strict_concatenate = true
 # output
 pretty = true
 show_column_numbers = true
 show_error_codes = true
 show_traceback = true
+strict = true
+strict_bytes = true
+strict_concatenate = true
+# main config
+strict_optional = true
+warn_incomplete_stub = true
+warn_no_return = true
+warn_unreachable = true
+warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+ignore_errors = true
+module = ["test.test_plugin.*"]
 
 [tool.pylint.basic]
 no-docstring-rgx = "^_"
@@ -96,8 +106,6 @@ no-docstring-rgx = "^_"
 min-public-methods = 0
 
 [tool.pylint.main]
-max-line-length = 100
-py-version = [3, 9]
 ignore-paths = ["test/test_plugin/.*"]
 load-plugins = [
     "pylint_per_file_ignores",
@@ -117,14 +125,10 @@ load-plugins = [
     "pylint.extensions.set_membership",
     "pylint.extensions.typing",
 ]
-
-[[tool.mypy.overrides]]
-module = ["test.test_plugin.*"]
-ignore_errors = true
-
+max-line-length = 100
+py-version = [3, 9]
 
 [tool.pylint."messages control"]
-enable = ["all"]
 disable = [
     # allow TODO comments
     "fixme",
@@ -135,6 +139,7 @@ disable = [
     "too-many-positional-arguments",
     "too-many-locals",
 ]
+enable = ["all"]
 per-file-ignores = [
     "test/**:missing-function-docstring,missing-class-docstring",
 ]
@@ -145,18 +150,18 @@ reports = false
 [tool.pylint.similarities]
 ignore-imports = true
 
-[tool.coverage.report]
-fail_under = 90
-show_missing = true
-skip_covered = true
-
-[tool.coverage.run]
-branch = true
-
-[tool.diff_cover]
-include_untracked = true
-fail_under = 90
-
 [tool.pytest.ini_options]
-xfail_strict = true
 addopts = "--strict-markers"
+xfail_strict = true
+
+[tool.setuptools.package-data]
+swagger_plugin_for_sphinx = ["py.typed"]
+
+[tool.setuptools.packages.find]
+include = ["pylint_per_file_ignores"]
+
+[tool.tomlsort]
+sort_first = ["build-system", "project"]
+sort_table_keys = true
+spaces_indent_inline_array = 4
+trailing_comma_inline_array = true
