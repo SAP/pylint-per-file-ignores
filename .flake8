@@ -16,7 +16,14 @@ ignore=
     FTP306,FTP304,FTP305
 per-file-ignores =
     test/*:FTP3
+    test/test_plugin/*:FTP3,FTP041
 ftp-python-version = 3.9.0
 ftp-auto-manage-options = true
+ftp-pyproject-toml-file = pyproject.toml
 ftp-pytest-parametrize-names-type = csv
 ftp-docstyle-lowercase-words = pylint-per-file-ignores
+ftp-distribution-name = pylint-per-file-ignores
+ftp-requirements-packages = test,pylint_per_file_ignores
+ftp-requirements-ignore-type-checking-block = true
+ftp-requirements-module-extra-mapping =
+    test | *,
