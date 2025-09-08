@@ -161,7 +161,7 @@ swagger_plugin_for_sphinx = ["py.typed"]
 include = ["pylint_per_file_ignores"]
 
 [tool.tomlsort]
-sort_first = ["build-system", "project"]
+sort_first = ["build-system", "project", "dependency-groups"]
 sort_table_keys = true
 spaces_indent_inline_array = 4
 trailing_comma_inline_array = true
