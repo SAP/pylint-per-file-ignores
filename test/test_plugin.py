@@ -24,7 +24,7 @@ class Runner:
             cwd=self.datadir / test_folder,
             check=False,
         )
-        return json.loads(result.stdout)
+        return json.loads(result.stdout) if result.stdout else None
 
 
 def _mglob(root: str | Path, /, *patterns: str | None) -> list[str]:
@@ -49,12 +49,15 @@ def fixture_rcfile(request):
 
 def test_no_config(runner: Runner) -> None:
     result = runner("test_no_config", "my_code.py")
+
+    assert result is not None, "pytest failed to run"
     assert len(result["messages"]) == 2
 
 
 def test_with_pyproject_toml(runner: Runner) -> None:
     result = runner("test_with_pyproject_toml", "a", "b")
 
+    assert result is not None, "pytest failed to run"
     assert _find_errors(result, "a.some_a") == ["import-error"]
     assert _find_errors(result, "b.some_b") == ["missing-module-docstring"]
 
@@ -62,11 +65,13 @@ def test_with_pyproject_toml(runner: Runner) -> None:
 def test_with_multi_job(runner: Runner) -> None:
     result = runner("test_multi_job", "tests", "project")
 
+    assert result is not None, "pytest failed to run"
     assert _find_errors(result, "tests.test_main") == ["missing-module-docstring"]
 
 
 def test_with_rcfile(runner: Runner, rcfile) -> None:
     result = runner("test_with_rcfile", f"--rcfile={rcfile}", "a", "b")
 
+    assert result is not None, "pytest failed to run"
     assert _find_errors(result, "a.some_a") == ["import-error"]
     assert _find_errors(result, "b.some_b") == ["missing-module-docstring"]
