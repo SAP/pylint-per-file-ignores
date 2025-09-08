@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import glob
+import re
 from collections import defaultdict
 from collections.abc import Callable
 from pathlib import Path
@@ -74,30 +75,13 @@ def register(linter: PyLinter) -> None:
 
 
 def _parse_string(input_string: str) -> list[str]:
-    # Use pylint utility function for config supplied through rc files.
-    if "\n" in input_string:
-        return utils._splitstrip(input_string, sep="\n")
+    if "\n" not in input_string:
+        # Config rules from pyproject.toml are supplied as a flat string.
+        # E.g. "a/foo*.py:W123,C0456,b/bar*.py:C1312"
+        # Introduce newlines between rules to be able to use pylint parsing utility.
+        input_string = re.sub(r",([^,:]+:)", r"\n\1", input_string)
 
-    # Custom logic for config supplied through pyproject.toml.
-    parts = input_string.split(",")
-
-    result = []
-    current_file = None
-    current_errors = []
-    for part in parts:
-        if ":" in part:
-            if current_file is not None:
-                result.append(f"{current_file}:{','.join(current_errors)}")
-
-            current_file, error = part.split(":", 1)
-            current_errors = [error]
-        else:
-            current_errors.append(part)
-
-    if current_file is not None:
-        result.append(f"{current_file}:{','.join(current_errors)}")
-
-    return result
+    return utils._splitstrip(input_string, sep="\n")
 
 
 def load_configuration(linter: PyLinter) -> None:
