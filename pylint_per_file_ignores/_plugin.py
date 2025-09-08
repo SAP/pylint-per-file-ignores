@@ -8,6 +8,7 @@ from collections.abc import Callable
 from pathlib import Path
 from typing import Any
 
+from pylint import utils
 from pylint.checkers import BaseChecker
 from pylint.exceptions import UnknownMessageError
 from pylint.lint import PyLinter
@@ -73,6 +74,11 @@ def register(linter: PyLinter) -> None:
 
 
 def _parse_string(input_string: str) -> list[str]:
+    # Use pylint utility function for config supplied through rc files.
+    if "\n" in input_string:
+        return utils._splitstrip(input_string, sep="\n")
+
+    # Custom logic for config supplied through pyproject.toml.
     parts = input_string.split(",")
 
     result = []
@@ -105,5 +111,5 @@ def load_configuration(linter: PyLinter) -> None:
         if pattern.startswith("\n"):
             pattern = pattern[1:]
         files = [Path(file).absolute() for file in glob.glob(pattern, recursive=True)]
-        rules = [rule.strip() for rule in rules_str.split(",")]
+        rules = list(filter(None, (rule.strip() for rule in rules_str.split(","))))
         _augment_add_message(linter, rules=rules, files=files)
