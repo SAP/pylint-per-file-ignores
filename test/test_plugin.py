@@ -7,6 +7,7 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
+import pytest
 from pytest_fixture_classes import fixture_class
 
 
@@ -26,10 +27,24 @@ class Runner:
         return json.loads(result.stdout)
 
 
+def _mglob(root: str | Path, /, *patterns: str | None) -> list[str]:
+    """Returns the files matching multiple glob patterns under root.
+    """
+    patterns = patterns or ["*"]
+    return [f.absolute() for pat in patterns for f in Path(root).glob(pat)]
+
+
 def _find_errors(result: dict[str, Any], name: str) -> list[str]:
     return [
         message["symbol"] for message in result["messages"] if name == message["module"]
     ]
+
+
+@pytest.fixture(name="rcfile", params=_mglob("test_plugin/configs/rc", "pylintrc_*"), ids=lambda f: f.name)
+def fixture_rcfile(request):
+    """Parametrized fixture returning the available pylintrc configurations.
+    """
+    return request.param
 
 
 def test_no_config(runner: Runner) -> None:
@@ -50,8 +65,8 @@ def test_with_multi_job(runner: Runner) -> None:
     assert _find_errors(result, "tests.test_main") == ["missing-module-docstring"]
 
 
-def test_with_rcfile(runner: Runner) -> None:
-    result = runner("test_with_rcfile", "a", "b")
+def test_with_rcfile(runner: Runner, rcfile) -> None:
+    result = runner("test_with_rcfile", f"--rcfile={rcfile}", "a", "b")
 
     assert _find_errors(result, "a.some_a") == ["import-error"]
     assert _find_errors(result, "b.some_b") == ["missing-module-docstring"]

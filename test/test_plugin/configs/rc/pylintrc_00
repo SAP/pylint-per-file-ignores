@@ -1,3 +1,5 @@
+# original pylintrc from test suite
+
 [MAIN]
 load-plugins = pylint_per_file_ignores
 
