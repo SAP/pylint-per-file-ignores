@@ -21,12 +21,14 @@ load-plugins=[
 ```
 
 ## Usage
-Add list of patterns and codes you would like to ignore.
-The patterns are matched using `globs`.
+Add list of patterns and codes you would like to ignore. The patterns are
+matched using [globbing][pathlib-glob]. You can also control the logging
+verbosity by setting `pylint-per-file-ignores` to the desired loglevel.
 
 **.pylintrc**
 ```ini
 [MESSAGES CONTROL]
+per-file-ignores-loglevel = DEBUG
 per-file-ignores =
   /folder_1/:missing-function-docstring,W0621,W0240,C0115
   file.py:C0116,E0001
@@ -35,6 +37,7 @@ per-file-ignores =
 **setup.cfg**
 ```ini
 [pylint.MESSAGES CONTROL]
+per-file-ignores-loglevel = INFO
 per-file-ignores =
   /folder_1/:missing-function-docstring,W0621,W0240,C0115
   file.py:C0116,E0001
@@ -43,11 +46,20 @@ per-file-ignores =
 **pyproject.toml**
 ```toml
 [tool.pylint.'messages control']
+per-file-ignores-loglevel = "INFO"
 per-file-ignores = [
     "/folder_1/:missing-function-docstring,W0621,W0240,C0115",
     "file.py:C0116,E0001"
 ]
+
 ```
+> [!IMPORTANT]
+> Prior to v2.0.0, `pylint-per-file-ignores` did not use [globbing][pathlib-glob]
+> to match the file patterns described in the configuration. You may have to
+> update your old configuration to properly match the expected files.
+> Setting `per-file-ignores-loglevel = DEBUG` could be helpful for migrating the
+> patterns from your pre-v2.0.0 configuration.
+
 
 ## Build and Publish
 
@@ -71,3 +83,5 @@ We as members, contributors, and leaders pledge to make participation in our com
 ## Licensing
 
 Copyright 2025 SAP SE or an SAP affiliate company and pylint-per-file-ignores contributors. Please see our [LICENSE](LICENSE) for copyright and license information. Detailed information including third-party components and their licensing/copyright information is available [via the REUSE tool](https://api.reuse.software/info/github.com/SAP/pylint-per-file-ignores).
+
+[pathlib-glob]: https://docs.python.org/3/library/pathlib.html#pathlib.Path.glob

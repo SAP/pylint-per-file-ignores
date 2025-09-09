@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import glob
+import logging
 import re
 from collections import defaultdict
 from collections.abc import Callable
@@ -14,6 +15,8 @@ from pylint.checkers import BaseChecker
 from pylint.exceptions import UnknownMessageError
 from pylint.lint import PyLinter
 from pylint.message import MessageDefinition
+
+logger = logging.getLogger(__package__)
 
 
 def _get_checker_by_msg(linter: PyLinter, rule: str) -> BaseChecker:
@@ -66,12 +69,25 @@ class PerFileIgnoresChecker(BaseChecker):
                 "help": "Newline-separated list of ignores",
             },
         ),
+        (
+            "per-file-ignores-loglevel",
+            {
+                "default": "WARNING",
+                "type": "string",
+                "metavar": "<loglevel>",
+                "choices": ["CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG"],
+                "help": f"Sets the log level for {__package__}",
+            },
+        ),
     )
 
 
 def register(linter: PyLinter) -> None:
     """Register the plugin."""
     linter.register_checker(PerFileIgnoresChecker(linter))
+
+    # NB: Use logging once to initialize handlers, also used by logger.
+    logging.debug("Registered %s.", __package__)
 
 
 def _parse_string(input_string: str) -> list[str]:
@@ -86,6 +102,8 @@ def _parse_string(input_string: str) -> list[str]:
 
 def load_configuration(linter: PyLinter) -> None:
     """Load the configuration."""
+    logger.setLevel(getattr(logging, linter.config.per_file_ignores_loglevel))
+
     config = dict(
         config_item.split(":")
         for config_item in _parse_string(linter.config.per_file_ignores)
@@ -96,4 +114,9 @@ def load_configuration(linter: PyLinter) -> None:
             pattern = pattern[1:]
         files = [Path(file).absolute() for file in glob.glob(pattern, recursive=True)]
         rules = list(filter(None, (rule.strip() for rule in rules_str.split(","))))
+
+        globroot= Path.cwd()
+        files_rel = (str(f.relative_to(globroot)) for f in files)
+        logger.debug("Ignoring rules %s for files %s.", rules, list(files_rel))
+
         _augment_add_message(linter, rules=rules, files=files)
