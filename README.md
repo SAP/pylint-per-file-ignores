@@ -28,7 +28,7 @@ The patterns are matched using `globs`.
 ```ini
 [MESSAGES CONTROL]
 per-file-ignores =
-  /folder_1/:missing-function-docstring,W0621,W0240,C0115
+  folder_1/*.py:missing-function-docstring,W0621,W0240,C0115
   file.py:C0116,E0001
 ```
 
@@ -36,7 +36,7 @@ per-file-ignores =
 ```ini
 [pylint.MESSAGES CONTROL]
 per-file-ignores =
-  /folder_1/:missing-function-docstring,W0621,W0240,C0115
+  folder_1/*.py:missing-function-docstring,W0621,W0240,C0115
   file.py:C0116,E0001
 ```
 
@@ -44,7 +44,7 @@ per-file-ignores =
 ```toml
 [tool.pylint.'messages control']
 per-file-ignores = [
-    "/folder_1/:missing-function-docstring,W0621,W0240,C0115",
+    "folder_1/*.py:missing-function-docstring,W0621,W0240,C0115",
     "file.py:C0116,E0001"
 ]
 ```
