@@ -12,11 +12,26 @@ pip install pylint-per-file-ignores
 ```
 
 ## Add to Pylint Settings
+
+**.pylintrc**
+```ini
+[MAIN]
+load-plugins =
+    pylint_per_file_ignores
+```
+
+**setup.cfg**
+```ini
+[pylint.MASTER]
+load-plugins =
+    pylint_per_file_ignores
+```
+
+**pyproject.toml**
 ```toml
-[tool.pylint.main]
-load-plugins=[
+[tool.pylint.MASTER]
+load-plugins = [
     "pylint_per_file_ignores",
-    ...
 ]
 ```
 
