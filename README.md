@@ -12,23 +12,42 @@ pip install pylint-per-file-ignores
 ```
 
 ## Add to Pylint Settings
+
+**.pylintrc**
+```ini
+[MAIN]
+load-plugins =
+    pylint_per_file_ignores
+```
+
+**setup.cfg**
+```ini
+[pylint.MASTER]
+load-plugins =
+    pylint_per_file_ignores
+```
+
+**pyproject.toml**
 ```toml
 [tool.pylint.main]
-load-plugins=[
+load-plugins = [
     "pylint_per_file_ignores",
-    ...
 ]
 ```
 
 ## Usage
 Add list of patterns and codes you would like to ignore.
-The patterns are matched using `globs`.
+The patterns are matched using [globs](https://docs.python.org/3/library/glob.html).
+
+
+> Prior to v2.0.0, `pylint-per-file-ignores` did not use globs but regex.
+> When migrating, please check your configuration carefully.
 
 **.pylintrc**
 ```ini
 [MESSAGES CONTROL]
 per-file-ignores =
-  /folder_1/:missing-function-docstring,W0621,W0240,C0115
+  /folder_1/*:missing-function-docstring,W0621,W0240,C0115
   file.py:C0116,E0001
 ```
 
@@ -36,7 +55,7 @@ per-file-ignores =
 ```ini
 [pylint.MESSAGES CONTROL]
 per-file-ignores =
-  /folder_1/:missing-function-docstring,W0621,W0240,C0115
+  /folder_1/*:missing-function-docstring,W0621,W0240,C0115
   file.py:C0116,E0001
 ```
 
@@ -44,7 +63,7 @@ per-file-ignores =
 ```toml
 [tool.pylint.'messages control']
 per-file-ignores = [
-    "/folder_1/:missing-function-docstring,W0621,W0240,C0115",
+    "/folder_1/*:missing-function-docstring,W0621,W0240,C0115",
     "file.py:C0116,E0001"
 ]
 ```
