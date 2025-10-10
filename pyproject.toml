@@ -15,7 +15,6 @@ classifiers = [
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -36,8 +35,8 @@ maintainers = [
 ]
 name = "pylint-per-file-ignores"
 readme = "README.md"
-requires-python = ">=3.9,<4"
-version = "2.0.3"
+requires-python = ">=3.10,<4"
+version = "3.0.0"
 
 [dependency-groups]
 dev = [
@@ -137,7 +136,7 @@ load-plugins = [
     "pylint.extensions.typing",
 ]
 max-line-length = 100
-py-version = [3, 9]
+py-version = [3, 10]
 
 [tool.pylint."messages control"]
 disable = [

@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.0.0
+- Removed support for python 3.9
+
 ## 2.0.3
 - Make glob patterns recursive
 

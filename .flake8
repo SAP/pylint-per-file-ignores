@@ -17,7 +17,7 @@ ignore=
 per-file-ignores =
     test/*:FTP3
     test/test_plugin/*:FTP3,FTP041
-ftp-python-version = 3.9.0
+ftp-python-version = 3.10.0
 ftp-auto-manage-options = true
 ftp-pyproject-toml-file = pyproject.toml
 ftp-pytest-parametrize-names-type = csv
