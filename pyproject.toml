@@ -51,6 +51,7 @@ dev = [
     "yesqa==1.5.0",
     "pyupgrade==3.20.0",
     "toml-sort==0.24.3",
+    "uv==0.8.11",
 ]
 test = [
     "pytest==8.4.2",
@@ -166,3 +167,6 @@ sort_first = ["build-system", "project", "dependency-groups"]
 sort_table_keys = true
 spaces_indent_inline_array = 4
 trailing_comma_inline_array = true
+
+[tool.uv]
+default-groups = []
