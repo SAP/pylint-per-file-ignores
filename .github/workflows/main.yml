@@ -21,11 +21,15 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
-          python-version: 3.14.0
+          python-version-file: .python-version
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version-file: pyproject.toml
       - name: Install project
-        run: pip install --group dev --group test -e .
+        run: uv sync --all-groups
       - name: run pre-commit
-        run: pre-commit run --all
+        run: uv run pre-commit run --all
   ci-test:
     strategy:
       fail-fast: false
@@ -40,11 +44,15 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version-file: pyproject.toml
       - name: Install project
-        run: pip install --group test -e .
+        run: uv sync --group test
       - name: Install pylint
-        run: pip install -U pylint==${{ matrix.pylint-version }}
+        run: uv pip install -U pylint==${{ matrix.pylint-version }}
       - name: run tests (with coverage)
-        run: pytest --cov --cov-report xml --cov-config pyproject.toml test/
+        run: uv run pytest --cov --cov-report xml --cov-config pyproject.toml test/
       - name: run diff-cover
-        run: diff-cover --config-file pyproject.toml coverage.xml
+        run: uv run diff-cover --config-file pyproject.toml coverage.xml
