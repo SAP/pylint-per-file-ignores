@@ -749,7 +749,7 @@ test = [
     { name = "pytest", specifier = "==8.4.2" },
     { name = "pytest-cov", specifier = "==7.0.0" },
     { name = "pytest-datadir", specifier = "==1.8.0" },
-    { name = "pytest-fixture-classes", specifier = "==1.0.3" },
+    { name = "pytest-fixture-classes", specifier = "==1.0.4" },
     { name = "pytest-randomly", specifier = "==4.0.1" },
 ]
 
@@ -799,15 +799,14 @@ wheels = [
 
 [[package]]
 name = "pytest-fixture-classes"
-version = "1.0.3"
+version = "1.0.4"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "pytest" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/64/64/b73a75449af548c3cd4ae3fc04b05aead53444f95ef0fef0c7c77cad3198/pytest_fixture_classes-1.0.3.tar.gz", hash = "sha256:5aee41a63dbd2d6317ce5a5587a9cfc5a0f825589cb0e0c456b1c3c6d8edfa5a", size = 5542, upload-time = "2023-09-02T17:06:17.8Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/54/6f/57ec62d321ab2032364d327edd4d7e4c2ee60257fc24df2622b2fc80f496/pytest_fixture_classes-1.0.4.tar.gz", hash = "sha256:b1f7979abea4d409bd58d0d70762805306789114f2137f36897a8bbb2ae6e28a", size = 58193, upload-time = "2025-10-12T14:14:03.483Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/17/05/8b2e512f68ac726d19ee9d75c2f786fdb9ac62651ac89e114893704e5bbf/pytest_fixture_classes-1.0.3-py3-none-any.whl", hash = "sha256:0b1b3f0d2ccaa6fb620cbd9bf1b228979c5a1590627e6d0961fb73d29629221a", size = 5484, upload-time = "2023-09-02T17:06:15.844Z" },
+    { url = "https://files.pythonhosted.org/packages/5e/ea/1057c5e3ac1ce36d8bc5817d7445b90fba06181508a23dff1fc3d13d2f6d/pytest_fixture_classes-1.0.4-py3-none-any.whl", hash = "sha256:49702dca2b6c64f4d5a8a5240292359c99a334851555d58e06b3b3aec9694e76", size = 5555, upload-time = "2025-10-12T14:14:02.424Z" },
 ]
 
 [[package]]
