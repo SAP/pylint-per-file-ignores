@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.1.0
+- Support pylint 4.x
+
 ## 3.0.0
 - Removed support for python 3.9
 
