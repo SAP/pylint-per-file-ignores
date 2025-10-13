@@ -24,7 +24,7 @@ classifiers = [
     "Typing :: Typed",
 ]
 dependencies = [
-    "pylint~=3.3",
+    "pylint>=3.3,<5",
 ]
 description = "A pylint plugin to ignore error codes per file."
 keywords = ["pylint", "plugin", "quality", "linter"]
@@ -36,12 +36,12 @@ maintainers = [
 name = "pylint-per-file-ignores"
 readme = "README.md"
 requires-python = ">=3.10,<4"
-version = "3.0.0"
+version = "3.1.0"
 
 [dependency-groups]
 dev = [
     "pre-commit==4.3.0",
-    "pylint==3.3.9",
+    "pylint==4.0.0",
     "black==25.1.0",
     "isort==6.1.0",
     "flake8==7.3.0",
