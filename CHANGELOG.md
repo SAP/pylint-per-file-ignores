@@ -1,5 +1,7 @@
 # Changelog
 
+<!-- towncrier release notes start -->
+
 ## 3.1.0
 - Support pylint 4.x
 
