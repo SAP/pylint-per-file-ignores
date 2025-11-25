@@ -41,4 +41,9 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: dist/*
+<<<<<<< Updated upstream
           name: Version ${{ env.RELEASE_VERSION }}
+=======
+          tag_name: v${{ steps.extract_version.outputs.version }}
+          name: Version ${{ steps.extract_version.outputs.version }}
+>>>>>>> Stashed changes
