@@ -38,6 +38,10 @@ name = "pylint-per-file-ignores"
 readme = "README.md"
 requires-python = ">=3.10,<4"
 
+[project.urls]
+Changelog = "https://github.com/SAP/pylint-per-file-ignores/blob/main/CHANGELOG.md"
+"Issue Tracker" = "https://github.com/SAP/pylint-per-file-ignores/issues"
+
 [dependency-groups]
 dev = [
     "pre-commit==4.4.0",
