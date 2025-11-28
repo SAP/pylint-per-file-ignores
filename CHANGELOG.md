@@ -4,8 +4,7 @@
 
 ## 3.2.0 (2025-11-25)
 
-No significant changes.
-
+* Updated the release actions
 
 ## 3.1.0
 - Support pylint 4.x
