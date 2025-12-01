@@ -74,6 +74,7 @@ skip_covered = true
 
 [tool.coverage.run]
 branch = true
+patch = ["subprocess"]
 
 [tool.diff_cover]
 fail_under = 90

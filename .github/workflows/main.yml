@@ -53,6 +53,40 @@ jobs:
       - name: Install pylint
         run: uv pip install -U pylint==${{ matrix.pylint-version }}
       - name: run tests (with coverage)
-        run: uv run pytest --cov --cov-report xml --cov-config pyproject.toml test/
+        run: uv run --no-sync pytest --cov --cov-report xml --cov-config pyproject.toml --cov-fail-under 0 test/
+  ci-coverage-reporting:
+    needs: ci-test
+    runs-on: ubuntu-latest
+    if: success()
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version-file: .python-version
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version-file: pyproject.toml
+      - name: Download coverage files
+        uses: actions/download-artifact@v4
+        with:
+          merge-multiple: true
+          path: coverage_files
+      - name: Install project
+        run: uv sync --all-groups
+      - name: Prepare coverage files
+        run: |
+          cd coverage_files
+          uv run coverage combine
+          mv .coverage ../.coverage
+          cd ..
+          uv run coverage xml
       - name: run diff-cover
-        run: uv run diff-cover --config-file pyproject.toml coverage.xml
+        run: uv run  diff-cover --config-file pyproject.toml coverage.xml
+      - name: Upload to Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          file: coverage.xml
