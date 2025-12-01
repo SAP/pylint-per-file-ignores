@@ -54,6 +54,18 @@ jobs:
         run: uv pip install -U pylint==${{ matrix.pylint-version }}
       - name: run tests (with coverage)
         run: uv run --no-sync pytest --cov --cov-report xml --cov-config pyproject.toml --cov-fail-under 0 test/
+      - name: Rename coverage file
+        run: |
+          UUID=$(uuidgen)
+          echo "UUID=${UUID}" >> $GITHUB_ENV
+          mv .coverage .coverage.${UUID}
+      - name: upload coverage file
+        uses: actions/upload-artifact@v4
+        with:
+          name: .coverage.${{ env.UUID }}
+          path: .coverage.${{ env.UUID }}
+          if-no-files-found: error
+          include-hidden-files: true
   ci-coverage-reporting:
     needs: ci-test
     runs-on: ubuntu-latest
