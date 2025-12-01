@@ -1,5 +1,5 @@
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP/pylint-per-file-ignores)](https://api.reuse.software/info/github.com/SAP/pylint-per-file-ignores)
-
+[![Coverage Status](https://coveralls.io/repos/github/SAP/pylint-per-file-ignores/badge.svg)](https://coveralls.io/github/SAP/pylint-per-file-ignores)
 
 # Pylint Per File Ignores
 This pylint plugin will enable per-file-ignores in your project!
