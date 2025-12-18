@@ -16,7 +16,7 @@ jobs:
   ci-pre-commit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - uses: actions/setup-python@v5
@@ -38,7 +38,7 @@ jobs:
         pylint-version: [3.3.*, 3.*, 4.0.*, 4.*]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - uses: actions/setup-python@v5
@@ -71,7 +71,7 @@ jobs:
     runs-on: ubuntu-latest
     if: success()
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - uses: actions/setup-python@v5
