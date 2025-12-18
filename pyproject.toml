@@ -58,7 +58,7 @@ dev = [
     "towncrier==25.8.0",
 ]
 test = [
-    "pytest==9.0.1",
+    "pytest==9.0.2",
     "coverage==7.11.3",
     "diff-cover==9.7.2",
     "pytest-cov==7.0.0",
