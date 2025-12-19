@@ -378,7 +378,7 @@ wheels = [
 
 [[package]]
 name = "flake8-tergeo"
-version = "25.12.19.0"
+version = "25.12.19.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "dependency-groups" },
@@ -393,9 +393,9 @@ dependencies = [
     { name = "tomli", marker = "python_full_version < '3.11'" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/be/a4/7a39eecb78839ef2d10d79e2ab8edf859424dd4fd97c8f4051b4dfefc29a/flake8_tergeo-25.12.19.0.tar.gz", hash = "sha256:0270bfb90f4e005b7fac64375196acdc7480726897750b8e307e1c27ec12a1fa", size = 50056, upload-time = "2025-12-19T08:46:12.481Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/fc/2e/1d7da2da71f4ede4f28ce2620cc20bea2ca70a4514c079d0a57991dbd158/flake8_tergeo-25.12.19.1.tar.gz", hash = "sha256:873df67d84c429a5c961d36984cd4250eab55718e952b63928a34454dfb9df3c", size = 51465, upload-time = "2025-12-19T10:44:23.448Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/73/7a/5d836c6c34172f36c0dfb73e1ed8cb0c2939b419c2b2bab4d66ac53cf822/flake8_tergeo-25.12.19.0-py3-none-any.whl", hash = "sha256:07654cf6499e7a3bdde9335c3974ccaa87d24fa978fb00209e9a217c9595b4f6", size = 58056, upload-time = "2025-12-19T08:46:11.374Z" },
+    { url = "https://files.pythonhosted.org/packages/c6/4e/189cab26c8c5a6707f69196fb69a1f02ee69dae596291001de4f73260dad/flake8_tergeo-25.12.19.1-py3-none-any.whl", hash = "sha256:6fd4493b2c056712ec62184841076d9798f050cb313e222f7d8e76865c696b43", size = 59200, upload-time = "2025-12-19T10:44:22.29Z" },
 ]
 
 [[package]]
@@ -817,7 +817,7 @@ requires-dist = [{ name = "pylint", specifier = ">=3.3,<5" }]
 dev = [
     { name = "black", specifier = "==25.12.0" },
     { name = "flake8", specifier = "==7.3.0" },
-    { name = "flake8-tergeo", specifier = "==25.12.19.0" },
+    { name = "flake8-tergeo", specifier = "==25.12.19.1" },
     { name = "isort", specifier = "==7.0.0" },
     { name = "mypy", specifier = "==1.19.1" },
     { name = "pre-commit", specifier = "==4.5.1" },
