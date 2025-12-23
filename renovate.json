@@ -44,6 +44,7 @@
                 "pep621"
             ],
             "rangeStrategy": "pin",
+            "minimumReleaseAge": "4 days",
             "automerge": true
         },
         {
@@ -52,6 +53,7 @@
                 "pre-commit",
                 "github-actions"
             ],
+            "minimumReleaseAge": "4 days",
             "automerge": true
         },
         {
