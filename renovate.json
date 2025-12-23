@@ -1,6 +1,5 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "minimumReleaseAge": "4 days",
     "enabledManagers": [
         "pep621",
         "pre-commit",
@@ -45,6 +44,7 @@
                 "pep621"
             ],
             "rangeStrategy": "pin",
+            "minimumReleaseAge": "4 days",
             "automerge": true
         },
         {
@@ -53,6 +53,7 @@
                 "pre-commit",
                 "github-actions"
             ],
+            "minimumReleaseAge": "4 days",
             "automerge": true
         },
         {
