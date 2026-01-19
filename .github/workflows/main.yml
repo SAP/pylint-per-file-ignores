@@ -30,6 +30,13 @@ jobs:
         run: uv sync --all-groups
       - name: run pre-commit
         run: uv run pre-commit run --all
+      - name: Check for uncommitted changes
+        run: |
+          if [[ -n "$(git status --porcelain --untracked-files=all)" ]]; then
+            echo "Changed files after pre-commit!"
+            git status --porcelain --untracked-files=all
+            exit 1
+          fi
   ci-test:
     strategy:
       fail-fast: false
