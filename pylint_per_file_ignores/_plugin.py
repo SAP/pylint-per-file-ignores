@@ -48,7 +48,7 @@ def _augment_add_message(
             ppfi_func(*args, **kwargs)
 
         # use the class to avoid issues with parallel execution
-        checker.__class__.add_message = _add_message  # type:ignore[method-assign]
+        checker.__class__.add_message = _add_message  # type: ignore[method-assign]
 
 
 class PerFileIgnoresChecker(BaseChecker):
