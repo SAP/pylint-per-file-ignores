@@ -45,7 +45,7 @@ Changelog = "https://github.com/SAP/pylint-per-file-ignores/blob/main/CHANGELOG.
 [dependency-groups]
 dev = [
     "pre-commit==4.5.1",
-    "pylint==4.0.4",
+    "pylint==4.0.5",
     "black==26.1.0",
     "isort==7.0.0",
     "flake8==7.3.0",
