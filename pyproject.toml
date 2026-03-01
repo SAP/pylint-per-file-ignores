@@ -166,9 +166,12 @@ reports = false
 [tool.pylint.similarities]
 ignore-imports = true
 
-[tool.pytest.ini_options]
-addopts = "--strict-markers"
-xfail_strict = true
+[tool.pytest]
+addopts = ["-p", "no:legacypath"]
+filterwarnings = [
+    "error",
+]
+strict = true
 
 [tool.setuptools.package-data]
 swagger_plugin_for_sphinx = ["py.typed"]
