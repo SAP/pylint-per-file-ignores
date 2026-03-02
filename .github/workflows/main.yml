@@ -67,7 +67,7 @@ jobs:
           echo "UUID=${UUID}" >> $GITHUB_ENV
           mv .coverage .coverage.${UUID}
       - name: upload coverage file
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: .coverage.${{ env.UUID }}
           path: .coverage.${{ env.UUID }}
