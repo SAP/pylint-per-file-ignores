@@ -73,6 +73,13 @@ def register(linter: PyLinter) -> None:
 
 
 def _parse_string(input_string: str) -> list[str]:
+    if "\n" in input_string:
+        result = []
+        for line in input_string.split("\n"):
+            if line.strip():
+                result.extend(_parse_string(line))
+        return result
+
     parts = input_string.split(",")
 
     result = []
@@ -105,5 +112,5 @@ def load_configuration(linter: PyLinter) -> None:
         if pattern.startswith("\n"):
             pattern = pattern[1:]
         files = [Path(file).absolute() for file in glob.glob(pattern, recursive=True)]
-        rules = [rule.strip() for rule in rules_str.split(",")]
+        rules = [rule.strip() for rule in rules_str.split(",") if rule.strip()]
         _augment_add_message(linter, rules=rules, files=files)
