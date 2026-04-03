@@ -2,6 +2,16 @@
 
 <!-- towncrier release notes start -->
 
+## 3.2.1 (2026-04-03)
+
+### Fixes
+
+- Fixed an issue causing configuration parsing issues if trailing commas are used when `setup.cfg`
+  or `.pylintrc` is used
+- Fixed an issue causing configuration parsing issues with multiple patterns when `setup.cfg`
+  or `.pylintrc` is used
+
+
 ## 3.2.0 (2025-11-25)
 
 * Updated the release actions
