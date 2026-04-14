@@ -36,9 +36,10 @@ load-plugins = [
 ```
 
 ## Usage
-Add list of patterns and codes you would like to ignore.
+Add a list of patterns and codes you would like to ignore.
 The patterns are matched using [globs](https://docs.python.org/3/library/glob.html).
-
+The config is parsed based on newlines, meaning each line should follow the pattern `<file-pattern>:<rule1>,<rule2>`.
+Newlines between rules are not supported.
 
 > Prior to v2.0.0, `pylint-per-file-ignores` did not use globs but regex.
 > When migrating, please check your configuration carefully.
@@ -66,6 +67,16 @@ per-file-ignores = [
     "/folder_1/*:missing-function-docstring,W0621,W0240,C0115",
     "file.py:C0116,E0001"
 ]
+```
+
+Please note, that for non-toml files newlines are important.
+For example, the following won't parse as expected
+
+```ini
+[pylint.MESSAGES CONTROL]
+per-file-ignores =
+  /folder_1/*:missing-function-docstring,
+    missing-class-docstring
 ```
 
 ## Development
