@@ -7,10 +7,9 @@ import re
 import shutil
 import subprocess
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 import pytest
-
 from pytest_fixture_classes import fixture_class
 
 A_PY_PATTERN = re.compile(r"a\.py:(.*)")
@@ -39,7 +38,7 @@ class Runner:
             cwd=cwd,
             check=False,
         )
-        return json.loads(result.stdout)
+        return cast(dict[str, Any], json.loads(result.stdout))
 
 
 def _get_symbols(result: dict[str, Any], module: str) -> list[str]:
