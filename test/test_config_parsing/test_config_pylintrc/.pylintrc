@@ -1,0 +1,7 @@
+[MAIN]
+load-plugins = pylint_per_file_ignores
+
+[MESSAGES CONTROL]
+per-file-ignores =
+    a.py:missing-module-docstring,unused-import
+    b.py:C0103
