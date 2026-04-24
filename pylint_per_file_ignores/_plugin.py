@@ -73,25 +73,23 @@ def register(linter: PyLinter) -> None:
 
 
 def _parse_string(input_string: str) -> list[str]:
-    if "\n" in input_string:
-        result = []
-        for line in input_string.split("\n"):
-            if line.strip():
-                result.extend(_parse_string(line))
-        return result
-
+    input_string = input_string.replace("\n", ",")
     parts = input_string.split(",")
 
     result = []
     current_file = None
     current_errors = []
     for part in parts:
+        part = part.strip()
+        if not part:
+            continue
+
         if ":" in part:
             if current_file is not None:
                 result.append(f"{current_file}:{','.join(current_errors)}")
 
             current_file, error = part.split(":", 1)
-            current_errors = [error]
+            current_errors = [error.strip()]
         else:
             current_errors.append(part)
 
