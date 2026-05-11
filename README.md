@@ -81,7 +81,12 @@ per-file-ignores =
 
 ## Development
 This project uses [`uv`](https://docs.astral.sh/uv/), which must be installed beforehand.
-To setup a venv for development use `uv sync --all-groups`.
+To install uv, and setup a venv for development, use:
+```
+pip install uv
+uv sync --all-groups
+
+```
 Then use `source .venv/bin/activate` to activate your venv.
 
 ## Build and Publish
