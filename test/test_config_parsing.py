@@ -85,6 +85,22 @@ def test_config_pylintrc(runner: Runner, *, trailing_comma: bool) -> None:
     assert _get_symbols(result, "b") == ["missing-module-docstring"]
 
 
+@pytest.mark.parametrize("trailing_comma", [True, False])
+def test_config_pylintrc_multiline(runner: Runner, *, trailing_comma: bool) -> None:
+    """Test per-file-ignores config parsed from .pylintrc with multiline settings."""
+    cwd = runner.datadir / "test_config_pylintrc_multiline"
+    if trailing_comma:
+        pylintrc = cwd / ".pylintrc"
+        content = pylintrc.read_text()
+        content = content.replace("unused-import", "unused-import,")
+        pylintrc.write_text(content)
+
+    result = runner("test_config_pylintrc_multiline")
+
+    assert _get_symbols(result, "a") == ["invalid-name"]
+    assert _get_symbols(result, "b") == ["missing-module-docstring"]
+
+
 def test_config_setup_cfg(runner: Runner) -> None:
     """Test per-file-ignores config parsed from setup.cfg."""
     result = runner("test_config_setup_cfg")
