@@ -871,6 +871,7 @@ test = [
     { name = "pytest-datadir" },
     { name = "pytest-fixture-classes" },
     { name = "pytest-randomly" },
+    { name = "typing-extensions" },
 ]
 
 [package.metadata]
@@ -899,6 +900,7 @@ test = [
     { name = "pytest-datadir", specifier = "==1.8.0" },
     { name = "pytest-fixture-classes", specifier = "==1.0.4" },
     { name = "pytest-randomly", specifier = "==4.1.0" },
+    { name = "typing-extensions", specifier = "==4.15.0" },
 ]
 
 [[package]]

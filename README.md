@@ -43,6 +43,8 @@ Newlines between codes are supported.
 > Prior to v2.0.0, `pylint-per-file-ignores` did not use globs but regex.
 > When migrating, please check your configuration carefully.
 
+Please note, that if two patterns applies the same files, the last configuration will be used.
+
 **.pylintrc**
 ```ini
 [MESSAGES CONTROL]
