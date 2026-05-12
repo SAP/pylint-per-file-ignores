@@ -72,43 +72,41 @@ def register(linter: PyLinter) -> None:
     linter.register_checker(PerFileIgnoresChecker(linter))
 
 
-def _parse_string(input_string: str) -> list[str]:
-    input_string = input_string.replace("\n", ",")
-    parts = [part.strip() for part in input_string.split(",") if part.strip()]
-
-    result = []
-    current_file = None
-    current_errors = []
-    for part in parts:
-        if ":" in part:  # we found a new file pattern
-            if current_file is not None:  # we had a previous file pattern
-                # save the previous file and its errors
-                result.append(f"{current_file}:{','.join(current_errors)}")
-                # reset the errors
-                current_errors = []
-
-            current_file, error = part.split(":", 1)
-            if error:
-                current_errors.append(error)
-        else:
-            current_errors.append(part)
-
-    if current_file is not None:
-        result.append(f"{current_file}:{','.join(current_errors)}")
-
-    return result
+def _apply_argument(rules: list[str], pattern: str, linter: PyLinter) -> None:
+    if not rules:
+        raise ValueError(f"No rules specified for file pattern {pattern}")
+    files = [Path(file).absolute() for file in glob.glob(pattern, recursive=True)]
+    _augment_add_message(linter, rules=rules, files=files)
 
 
 def load_configuration(linter: PyLinter) -> None:
     """Load the configuration."""
-    config = dict(
-        config_item.split(":")
-        for config_item in _parse_string(linter.config.per_file_ignores)
-    )
+    input_string: str = linter.config.per_file_ignores.replace("\n", ",")
+    parts = [part.strip() for part in input_string.split(",") if part.strip()]
 
-    for pattern, rules_str in config.items():
-        if pattern.startswith("\n"):
-            pattern = pattern[1:]
-        files = [Path(file).absolute() for file in glob.glob(pattern, recursive=True)]
-        rules = [rule.strip() for rule in rules_str.split(",") if rule.strip()]
-        _augment_add_message(linter, rules=rules, files=files)
+    current_pattern = None
+    current_rules = []
+    seen_patterns = set()
+    for part in parts:
+        if ":" not in part:
+            current_rules.append(part.strip())
+            continue
+
+        # we found a new file pattern
+        if current_pattern is not None:  # we had a previous file pattern
+            _apply_argument(current_rules, current_pattern, linter)
+            # reset state
+            current_rules = []
+            current_pattern = None
+
+        current_pattern, error = part.split(":", 1)
+        if current_pattern in seen_patterns:
+            raise ValueError(f"Duplicate file pattern {current_pattern}")
+        seen_patterns.add(current_pattern)
+        if current_pattern.startswith("\n"):
+            current_pattern = current_pattern[1:]
+        if error:
+            current_rules.append(error.strip())
+
+    if current_pattern is not None:
+        _apply_argument(current_rules, current_pattern, linter)

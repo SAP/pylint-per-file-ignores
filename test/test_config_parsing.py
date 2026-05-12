@@ -11,26 +11,20 @@ from typing import Any, cast
 
 import pytest
 from pytest_fixture_classes import fixture_class
+from typing_extensions import override
 
 A_PY_PATTERN = re.compile(r"a\.py:(.*)")
 
 
-@fixture_class(name="runner")
-class Runner:
+class BaseRunner:
     datadir: Path
 
-    def __call__(self, test_folder: str) -> dict[str, Any]:
-        """Run pylint on a.py and b.py in the given test folder."""
+    def __call__(self, test_folder: str) -> str:
         cwd = self.datadir / test_folder
         self._copy_source_files(cwd)
         return self._run_pylint(cwd)
 
-    def _copy_source_files(self, cwd: Path) -> None:
-        for source_file in (self.datadir / "source_files").iterdir():
-            shutil.copy(source_file, cwd / source_file.name)
-
-    @staticmethod
-    def _run_pylint(cwd: Path) -> dict[str, Any]:
+    def _run_pylint(self, cwd: Path) -> str:
         result = subprocess.run(
             ["pylint", "-f", "json2", "a.py", "b.py"],
             text=True,
@@ -38,7 +32,31 @@ class Runner:
             cwd=cwd,
             check=False,
         )
-        return cast(dict[str, Any], json.loads(result.stdout))
+        return result.stderr or result.stdout
+
+    def _copy_source_files(self, cwd: Path) -> None:
+        for source_file in (self.datadir / "source_files").iterdir():
+            shutil.copy(source_file, cwd / source_file.name)
+
+
+@fixture_class(name="runner")
+class Runner(BaseRunner):
+    datadir: Path
+
+    @override
+    def __call__(self, test_folder: str) -> dict[str, Any]:  # type: ignore[override]
+        result = super().__call__(test_folder)
+        return cast(dict[str, Any], json.loads(result))
+
+
+@fixture_class(name="error_runner")
+class ErrorRunner(BaseRunner):
+    datadir: Path
+
+    @override
+    def __call__(self, test_folder: str, error_message: str) -> None:  # type: ignore[override]
+        result = super().__call__(test_folder)
+        assert error_message in result
 
 
 def _get_symbols(result: dict[str, Any], module: str) -> list[str]:
@@ -99,6 +117,22 @@ def test_config_pylintrc_multiline(runner: Runner, *, trailing_comma: bool) -> N
 
     assert _get_symbols(result, "a") == ["invalid-name"]
     assert _get_symbols(result, "b") == ["missing-module-docstring"]
+
+
+def test_config_pylintrc_empty_rules(error_runner: ErrorRunner) -> None:
+    """Test per-file-ignores config parsed from .pylintrc with empty rules."""
+    error_runner(
+        "test_config_pylintrc_empty_rules",
+        error_message="No rules specified for file pattern",
+    )
+
+
+def test_config_pylintrc_duplicate_pattern(error_runner: ErrorRunner) -> None:
+    """Test per-file-ignores config parsed from .pylintrc with duplicate patterns."""
+    error_runner(
+        "test_config_pylintrc_duplicate_pattern",
+        error_message="Duplicate file pattern a.py",
+    )
 
 
 def test_config_setup_cfg(runner: Runner) -> None:
