@@ -80,9 +80,17 @@ per-file-ignores =
 ```
 
 ## Development
-This project uses `uv`.
-To setup a venv for development use
-`python3.14 -m venv venv && pip install uv && uv sync --all-groups && rm -rf venv/`.
+This project uses [`uv`](https://docs.astral.sh/uv/).
+To install uv, and setup a venv for development, use:
+```
+python3.14 -m venv venv && \
+    source venv/bin/activate && \
+    pip install uv && uv sync --all-groups && \
+    deactivate  && \
+    rm -rf venv/
+```
+This will create a temporary `venv`, install uv to bootstrap the project
+`.venv`, and remove the temporary `venv` again.
 Then use `source .venv/bin/activate` to activate your venv.
 
 ## Build and Publish
