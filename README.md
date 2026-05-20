@@ -36,13 +36,14 @@ load-plugins = [
 ```
 
 ## Usage
-Add a list of patterns and codes you would like to ignore.
+Add a list of patterns and codes you would like to ignore following `<file-pattern>:<code1>,<code2>`.
 The patterns are matched using [globs](https://docs.python.org/3/library/glob.html).
-The config is parsed based on newlines, meaning each line should follow the pattern `<file-pattern>:<rule1>,<rule2>`.
-Newlines between rules are not supported.
+Newlines between codes are supported.
 
 > Prior to v2.0.0, `pylint-per-file-ignores` did not use globs but regex.
 > When migrating, please check your configuration carefully.
+
+Please note, that if two patterns applies the same files, the last configuration will be used.
 
 **.pylintrc**
 ```ini
