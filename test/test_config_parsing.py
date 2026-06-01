@@ -11,51 +11,41 @@ from typing import Any, cast
 
 import pytest
 from pytest_fixture_classes import fixture_class
-from typing_extensions import override
 
 A_PY_PATTERN = re.compile(r"a\.py:(.*)")
 
 
-class BaseRunner:
-    datadir: Path
+def _run_pylint(test_folder: str, datadir: Path) -> str:
+    cwd = datadir / test_folder
 
-    def __call__(self, test_folder: str) -> str:
-        cwd = self.datadir / test_folder
-        self._copy_source_files(cwd)
-        return self._run_pylint(cwd)
+    for source_file in (datadir / "source_files").iterdir():
+        shutil.copy(source_file, cwd / source_file.name)
 
-    def _run_pylint(self, cwd: Path) -> str:
-        result = subprocess.run(
-            ["pylint", "-f", "json2", "a.py", "b.py"],
-            text=True,
-            capture_output=True,
-            cwd=cwd,
-            check=False,
-        )
-        return result.stderr or result.stdout
-
-    def _copy_source_files(self, cwd: Path) -> None:
-        for source_file in (self.datadir / "source_files").iterdir():
-            shutil.copy(source_file, cwd / source_file.name)
+    result = subprocess.run(
+        ["pylint", "-f", "json2", "a.py", "b.py"],
+        text=True,
+        capture_output=True,
+        cwd=cwd,
+        check=False,
+    )
+    return result.stderr or result.stdout
 
 
 @fixture_class(name="runner")
-class Runner(BaseRunner):
+class Runner:
     datadir: Path
 
-    @override
-    def __call__(self, test_folder: str) -> dict[str, Any]:  # type: ignore[override]
-        result = super().__call__(test_folder)
+    def __call__(self, test_folder: str) -> dict[str, Any]:
+        result = _run_pylint(test_folder, self.datadir)
         return cast(dict[str, Any], json.loads(result))
 
 
 @fixture_class(name="error_runner")
-class ErrorRunner(BaseRunner):
+class ErrorRunner:
     datadir: Path
 
-    @override
-    def __call__(self, test_folder: str, error_message: str) -> None:  # type: ignore[override]
-        result = super().__call__(test_folder)
+    def __call__(self, test_folder: str, error_message: str) -> None:
+        result = _run_pylint(test_folder, self.datadir)
         assert error_message in result
 
 
