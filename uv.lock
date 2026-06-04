@@ -457,7 +457,7 @@ wheels = [
 
 [[package]]
 name = "flake8-tergeo"
-version = "26.6.1.1"
+version = "26.6.1.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "dependency-groups" },
@@ -472,9 +472,9 @@ dependencies = [
     { name = "tomli", marker = "python_full_version < '3.11'" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/a3/85/712975d14bf292f9d4879dd563f6dcfbe2a41cb9eece23101e786a234d71/flake8_tergeo-26.6.1.1.tar.gz", hash = "sha256:ca97c2d67c01d5c586a877e8588f86f7eb6245c208231feee9ca86aea801ce69", size = 197832, upload-time = "2026-06-01T09:50:21.966Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/ff/60/1fa981c21e56193d941696da5811f98a3fd72d08b1e77e41d8e966473028/flake8_tergeo-26.6.1.2.tar.gz", hash = "sha256:5a4fca35359545a8b163950e7351054f2832e6e9b47119f5063b045d8b667015", size = 198080, upload-time = "2026-06-01T13:09:22.617Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/02/bc/8dd3e3b72dd77505a434b949e9686938b6f22be979944acd75e900af6c99/flake8_tergeo-26.6.1.1-py3-none-any.whl", hash = "sha256:c9908ce2800fd2665e1f0397319558871add895540ad82c294008a32d342e940", size = 61367, upload-time = "2026-06-01T09:50:20.586Z" },
+    { url = "https://files.pythonhosted.org/packages/5b/52/bf9d0a3cfc47d97b18b2e660003bc8f77715b8b28548a199025d8a06b34c/flake8_tergeo-26.6.1.2-py3-none-any.whl", hash = "sha256:9bb07a712a7f704372d3510ece1d1ede27232941f48e5be02f846f110f016745", size = 61466, upload-time = "2026-06-01T13:09:21.362Z" },
 ]
 
 [[package]]
@@ -922,7 +922,7 @@ requires-dist = [{ name = "pylint", specifier = ">=3.3,<5" }]
 dev = [
     { name = "black", specifier = "==26.5.1" },
     { name = "flake8", specifier = "==7.3.0" },
-    { name = "flake8-tergeo", specifier = "==26.6.1.1" },
+    { name = "flake8-tergeo", specifier = "==26.6.1.2" },
     { name = "isort", specifier = "==8.0.1" },
     { name = "mypy", specifier = "==2.1.0" },
     { name = "pre-commit", specifier = "==4.6.0" },
