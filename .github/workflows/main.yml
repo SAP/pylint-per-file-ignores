@@ -16,7 +16,7 @@ jobs:
   ci-pre-commit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: Install uv
@@ -42,7 +42,7 @@ jobs:
         pylint-version: [3.3.*, 3.*, 4.0.*, 4.*]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: Install uv
@@ -78,7 +78,7 @@ jobs:
           echo "Predecessor job(s) failed:"
           echo "  ci-test: ${{ needs.ci-test.result }}"
           exit 1
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: Install uv
