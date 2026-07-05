@@ -65,7 +65,7 @@ test = [
     "pytest-randomly==4.1.0",
     "pytest-datadir==1.8.0",
     "pytest-fixture-classes==1.0.4",
-    "typing_extensions==4.15.0",
+    "typing_extensions==4.16.0",
 ]
 
 [tool.coverage.report]
