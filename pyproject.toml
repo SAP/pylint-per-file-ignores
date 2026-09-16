@@ -4,8 +4,8 @@ requires = ["setuptools~=84.0", "setuptools-scm~=10.0"]
 
 [project]
 authors = [
-    {name = "Christopher Pickering", email = "christopher@going.bg"},
-    {name = "Kai Harder", email = "kai.harder@sap.com"},
+    { name = "Christopher Pickering", email = "christopher@going.bg" },
+    { name = "Kai Harder", email = "kai.harder@sap.com" },
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -32,7 +32,7 @@ keywords = ["pylint", "plugin", "quality", "linter"]
 license = "MIT"
 license-files = ["LICENSE"]
 maintainers = [
-    {name = "Kai Harder", email = "kai.harder@sap.com"},
+    { name = "Kai Harder", email = "kai.harder@sap.com" },
 ]
 name = "pylint-per-file-ignores"
 readme = "README.md"
