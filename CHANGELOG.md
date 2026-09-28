@@ -2,6 +2,18 @@
 
 <!-- towncrier release notes start -->
 
+## 4.0.0 (2026-09-28)
+
+### Removals
+
+- Removed support for pylint 3
+- Removed support for python3.10
+
+### Features
+
+- Support newlines between codes in the configuration
+
+
 ## 3.2.1 (2026-04-03)
 
 ### Fixes
