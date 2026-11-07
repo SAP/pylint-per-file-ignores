@@ -59,7 +59,7 @@ dev = [
 test = [
     "pytest==9.2.0",
     "coverage==7.17.2",
-    "diff-cover==11.0.0",
+    "diff-cover==11.0.1",
     "pytest-cov==7.1.0",
     "pytest-randomly==5.0.0",
     "pytest-datadir==1.9.0",
